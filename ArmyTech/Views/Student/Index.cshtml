@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ArmyTech.Models.Student>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@Html.ActionLink("Create Student", "Create", "Student", htmlAttributes: new { @class = "btn btn-success" })
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">BirthDate</th>
+                    <th scope="col">Field</th>
+                    <th scope="col">Governate</th>
+                    <th scope="col">Neighborhood</th>
+                    <th scope="col">Teachers</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    string s = "||";
+                    <tr>
+
+                        <td>@item.Name</td>
+                        <td>@item.BirthDate</td>
+                        <td>@item.Field.Name</td>
+                        <td>@item.Governorate.Name</td>
+                        <td>@item.Neighborhood.Name</td>
+                        <td>
+                            @foreach (var teacher in item.StudentTeachers)
+                            {
+                                @(String.Format("{0} {1}", teacher.Teacher.Name, ", "));
+
+                            }
+                        </td>
+
+
+
+                        <td>
+
+                            @Html.ActionLink("Edit", "Edit", "Student",
+                            htmlAttributes: new { @class = "btn btn-success" },
+                             routeValues: new { id = item.ID })
+                        </td>
+                        <td>
+
+                            @Html.ActionLink("Delete", "Delete", "Student",
+                            htmlAttributes: new
+                                 {
+                                     @class = "btn btn-danger",
+                                onclick = "return confirm('Are you sure you wish to delete this student?');"
+                            },
+                             routeValues: new { id = item.ID })
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
